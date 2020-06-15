@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>color_language</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop" transform="translate(-400.000000, -588.000000)" fill="#553E7A">
+            <g id="CSS" transform="translate(368.000000, 292.000000)">
+                <g id="Components/UI_Card_2">
+                    <g id="Footer_info" transform="translate(0.000000, 261.000000)">
+                        <g id="language">
+                            <g transform="translate(32.000000, 35.000000)">
+                                <circle id="color_language" cx="8" cy="8" r="8"></circle>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
