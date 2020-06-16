@@ -1,18 +1,12 @@
-import AppFunctionComponent from "@appnroll/app-function-component"
+// import AppFunctionComponent from "@appnroll/app-function-component"
 import { graphql } from "gatsby"
-import Image, { FluidObject } from "gatsby-image"
 import React from "react"
-import styled from "styled-components"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Repositories from "../components/base/repositories/repositories.component"
+import { parseData } from "../parser/dataParser"
 
-const Content = styled.div`
-  max-width: 300px;
-  margin-bottom: 1.45rem;
-`
-
-interface Props {
+/* interface Props {
   readonly data: {
     readonly placeholderImage: {
       readonly childImageSharp: {
@@ -20,31 +14,42 @@ interface Props {
       }
     }
   }
-}
+} */
 
-const IndexPage: AppFunctionComponent<Props> = ({
-  data: {
-    placeholderImage: {
-      childImageSharp: { fluid },
-    },
-  },
-}) => (
+const IndexPage = ({ data }) => (
   <Layout>
     <SEO title="Home" />
-    <Repositories />
+    <Repositories data={parseData(data)} />
   </Layout>
 )
 
 export default IndexPage
 
 export const query = graphql`
-  query {
-    placeholderImage: file(relativePath: { eq: "appnroll.png" }) {
-      childImageSharp {
-        fluid(maxWidth: 300) {
-          ...GatsbyImageSharpFluid
+  query MyQuery {
+    githubData {
+      data {
+        organization {
+          repositories {
+            nodes {
+              description
+              forkCount
+              languages {
+                nodes {
+                  color
+                  name
+                }
+              }
+              name
+              stargazers {
+                totalCount
+              }
+              url
+            }
+          }
         }
       }
+      id
     }
   }
 `

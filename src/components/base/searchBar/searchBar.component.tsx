@@ -26,6 +26,7 @@ const SearchBar = ({ query, setQuery }) => {
       onChange={(e) => setQuery(e.target.value)}
       placeholder="Search"
       autoFocus
+      autoComplete="off"
     />
   )
 }

@@ -11,17 +11,15 @@ const GridWrapper = styled.div`
   margin: 39px auto;
 `
 
-const Repositories = () => {
+const Repositories = ({ data }) => {
   const [favourite, setFavourite] = useState(false)
 
   return (
     <GridWrapper>
-      <Repository />
-      <Repository />
-      <Repository />
-      <Repository />
-      <Repository />
-      <Repository />
+      {console.log(data)}
+      {data.map((repository) => (
+        <Repository {...repository} />
+      ))}
     </GridWrapper>
   )
 }

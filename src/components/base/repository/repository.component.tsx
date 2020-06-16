@@ -12,7 +12,6 @@ import { buttonColor } from "../../../theming/theme-getters"
 const RepoWrapper = styled.div`
   height: 350px;
   width: 375px;
-  border-top: 6px solid limegreen;
   border-radius: 5px;
   border-bottom: 1px solid #e3e5e8;
   border-left: 1px solid #e3e5e8;
@@ -75,7 +74,6 @@ const Paragraph = styled.p`
 const Dot = styled.div`
   height: 16px;
   width: 16px;
-  background-color: limegreen;
   border-radius: 50%;
   margin-right: 4px;
 `
@@ -108,19 +106,25 @@ const Title = styled.h2`
   margin: 0 0 12px 0;
 `
 
-const Repository = () => (
-  <RepoWrapper>
+const Repository = ({
+  name,
+  url,
+  description,
+  languages,
+  forkCount,
+  stargazers,
+}) => (
+  <RepoWrapper style={{ borderTop: `6px solid ${languages.nodes[0].color}` }}>
     <ContentWrapper>
       <LeftContent>
-        <Title>Kudos App</Title>
+        <Title>{name}</Title>
         <Link>
           <ButtonIcon icon={externalLinkIcon} />
-          <a href="github.com/appnroll">Appnroll/box-android</a>
+          <a href={url} target="_blank">
+            Appnroll/{name}
+          </a>
         </Link>
-        <Description>
-          Gatsby sites are fully functional React apps so you can create
-          high-quality, dynamic web apps, blogs.
-        </Description>
+        <Description>{description}</Description>
       </LeftContent>
       <RightContent>
         <ButtonIcon fav icon={addedIcon} />
@@ -128,16 +132,16 @@ const Repository = () => (
     </ContentWrapper>
     <Footer>
       <Language>
-        <Dot />
-        <Paragraph>CSS</Paragraph>
+        <Dot style={{ backgroundColor: languages.nodes[0].color }} />
+        <Paragraph>{languages.nodes[0].name}</Paragraph>
       </Language>
       <Info>
         <ButtonIcon icon={starsIcon} />
-        <Paragraph>22.6k</Paragraph>
+        <Paragraph>{stargazers.totalCount}</Paragraph>
         <ButtonIcon icon={visitorsIcon} />
         <Paragraph>211</Paragraph>
         <ButtonIcon icon={issuesIcon} />
-        <Paragraph>635</Paragraph>
+        <Paragraph>{forkCount}</Paragraph>
       </Info>
     </Footer>
   </RepoWrapper>

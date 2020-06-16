@@ -88,36 +88,36 @@ module.exports = {
       resolve: `gatsby-source-github-api`,
       options: {
         url: "https://api.github.com/graphql",
-        token: process.env.TOKEN,
+        token: "8c4f16d46a38db489ea087c94b3acc0e04cd7beb",
 
         // GraphQLquery: defaults to a search query
         graphQLQuery: `
-        {
-          organization(login: "Appnroll") {
-            avatarUrl
-            description
-            name
-            location
-            websiteUrl
-            repositories(first: 6, isFork: false) {
-              nodes {
-                name
-                url
-                description
-                languages(first: 1) {
-                  nodes {
-                    name
-                    color
-                  }
-                }
-                forkCount
-                stargazers {
-                  totalCount
-                }
-              }
+        query gitHubQuery {
+    organization(login: "Appnroll") {
+      avatarUrl
+      description
+      name
+      location
+      websiteUrl
+      repositories(last: 6, isFork: false) {
+        nodes {
+          name
+          url
+          description
+          languages(first: 1) {
+            nodes {
+              name
+              color
             }
           }
+          forkCount
+          stargazers {
+            totalCount
+          }
         }
+      }
+    }
+  }
       `,
 
         // variables: defaults to variables needed for a search query
