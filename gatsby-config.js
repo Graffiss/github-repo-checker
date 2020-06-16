@@ -1,9 +1,8 @@
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
-})
+require("dotenv").config()
 
 const {
   NODE_ENV,
+  TOKEN,
   SITE_URL,
   URL: NETLIFY_SITE_URL = SITE_URL,
   DEPLOY_PRIME_URL: NETLIFY_DEPLOY_URL = NETLIFY_SITE_URL,
@@ -88,36 +87,36 @@ module.exports = {
       resolve: `gatsby-source-github-api`,
       options: {
         url: "https://api.github.com/graphql",
-        token: "8c4f16d46a38db489ea087c94b3acc0e04cd7beb",
+        token: TOKEN,
 
         // GraphQLquery: defaults to a search query
         graphQLQuery: `
-        query gitHubQuery {
-    organization(login: "Appnroll") {
-      avatarUrl
-      description
-      name
-      location
-      websiteUrl
-      repositories(last: 6, isFork: false) {
-        nodes {
-          name
-          url
-          description
-          languages(first: 1) {
-            nodes {
-              name
-              color
+        {
+          organization(login: "Appnroll") {
+            avatarUrl
+            description
+            name
+            location
+            websiteUrl
+            repositories(last: 6, isFork: false) {
+              nodes {
+                name
+                url
+                description
+                languages(first: 1) {
+                  nodes {
+                    name
+                    color
+                  }
+                }
+                forkCount
+                stargazers {
+                  totalCount
+                }
+              }
             }
           }
-          forkCount
-          stargazers {
-            totalCount
-          }
         }
-      }
-    }
-  }
       `,
 
         // variables: defaults to variables needed for a search query
