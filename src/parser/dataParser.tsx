@@ -1,6 +1,6 @@
 export const parseData = (rawData) => {
   const data = rawData.githubData.data
-  const repositories = data.organization.repositories.nodes
+  const repositories = data.search.edges
   return repositories
 }
 

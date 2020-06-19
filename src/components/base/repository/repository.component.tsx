@@ -22,6 +22,7 @@ const RepoWrapper = styled.div`
 const ContentWrapper = styled.div`
   display: flex;
   padding: 34px 0;
+  width: 100%;
 `
 
 const LeftContent = styled.div`
@@ -29,6 +30,7 @@ const LeftContent = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 32px;
+  max-width: 300px;
 `
 
 const RightContent = styled.div`
@@ -107,14 +109,17 @@ const Title = styled.h2`
 `
 
 const Repository = ({
-  name,
-  url,
-  description,
-  languages,
-  forkCount,
-  stargazers,
+  node: {
+    primaryLanguage,
+    name,
+    description,
+    stargazers,
+    issues,
+    url,
+    watchers,
+  },
 }) => (
-  <RepoWrapper style={{ borderTop: `6px solid ${languages.nodes[0].color}` }}>
+  <RepoWrapper style={{ borderTop: `6px solid ${primaryLanguage.color}` }}>
     <ContentWrapper>
       <LeftContent>
         <Title>{name}</Title>
@@ -132,16 +137,16 @@ const Repository = ({
     </ContentWrapper>
     <Footer>
       <Language>
-        <Dot style={{ backgroundColor: languages.nodes[0].color }} />
-        <Paragraph>{languages.nodes[0].name}</Paragraph>
+        <Dot style={{ backgroundColor: primaryLanguage.color }} />
+        <Paragraph>{primaryLanguage.name}</Paragraph>
       </Language>
       <Info>
         <ButtonIcon icon={starsIcon} />
         <Paragraph>{stargazers.totalCount}</Paragraph>
         <ButtonIcon icon={visitorsIcon} />
-        <Paragraph>211</Paragraph>
+        <Paragraph>{watchers.totalCount}</Paragraph>
         <ButtonIcon icon={issuesIcon} />
-        <Paragraph>{forkCount}</Paragraph>
+        <Paragraph>{issues.totalCount}</Paragraph>
       </Info>
     </Footer>
   </RepoWrapper>

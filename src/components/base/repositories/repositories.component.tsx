@@ -18,7 +18,7 @@ const Repositories = ({ data }) => {
     <GridWrapper>
       {console.log(data)}
       {data.map((repository) => (
-        <Repository {...repository} />
+        <Repository key={repository.node.id} {...repository} />
       ))}
     </GridWrapper>
   )

@@ -90,37 +90,38 @@ module.exports = {
         token: TOKEN,
 
         // GraphQLquery: defaults to a search query
-        graphQLQuery: `
-        {
-          organization(login: "Appnroll") {
-            avatarUrl
-            description
-            name
-            location
-            websiteUrl
-            repositories(last: 6, isFork: false) {
-              nodes {
-                name
-                url
-                description
-                languages(first: 1) {
-                  nodes {
+        graphQLQuery: `query SearchQuery($q: String!) {
+          search(query: $q, type: REPOSITORY, last: 6) {
+            edges {
+              node {
+                ... on Repository {
+                  name
+                  description
+                  stargazers {
+                    totalCount
+                  }
+                  primaryLanguage {
                     name
                     color
                   }
-                }
-                forkCount
-                stargazers {
-                  totalCount
+                  id
+                  issues {
+                    totalCount
+                  }
+                  url
+                  watchers {
+                    totalCount
+                  }
                 }
               }
             }
           }
-        }
-      `,
+        }`,
 
         // variables: defaults to variables needed for a search query
-        // variables: someObject,
+        variables: {
+          q: "org:Appnroll language:javascript",
+        },
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
