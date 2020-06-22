@@ -1,6 +1,7 @@
-import React, { useState } from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import Repository from "../repository/repository.component"
+import AppContext from "../../../context/AppContext"
 
 const GridWrapper = styled.div`
   display: grid;
@@ -11,14 +12,13 @@ const GridWrapper = styled.div`
   margin: 39px auto;
 `
 
-const Repositories = ({ data }) => {
-  const [favourite, setFavourite] = useState(false)
-
+const Repositories = () => {
+  const context = useContext(AppContext)
+  const { repos } = context
   return (
     <GridWrapper>
-      {console.log(data)}
-      {data.map((repository) => (
-        <Repository key={repository.node.id} {...repository} />
+      {repos.map((repository) => (
+        <Repository key={repository.id} repository={repository} />
       ))}
     </GridWrapper>
   )

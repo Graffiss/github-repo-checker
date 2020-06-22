@@ -1,9 +1,10 @@
 // import AppFunctionComponent from "@appnroll/app-function-component"
 import { graphql } from "gatsby"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Repositories from "../components/base/repositories/repositories.component"
+import GlobalState from "../context/GlobalState"
 import { parseData } from "../parser/dataParser"
 
 /* interface Props {
@@ -17,13 +18,13 @@ import { parseData } from "../parser/dataParser"
 } */
 
 const IndexPage = ({ data }) => {
-  const [q, setQ] = useState("org:Appnroll language:javascript")
-
   return (
-    <Layout>
-      <SEO title="Home" />
-      <Repositories data={parseData(data)} />
-    </Layout>
+    <GlobalState>
+      <Layout>
+        <SEO title="Home" />
+        <Repositories />
+      </Layout>
+    </GlobalState>
   )
 }
 
@@ -31,28 +32,16 @@ export default IndexPage
 
 export const query = graphql`
   query MyQuery {
-    githubData {
-      data {
-        search {
-          edges {
-            node {
-              name
+    allGithubData {
+      edges {
+        node {
+          data {
+            organization {
+              avatarUrl
               description
-              stargazers {
-                totalCount
-              }
-              primaryLanguage {
-                name
-                color
-              }
-              id
-              issues {
-                totalCount
-              }
-              url
-              watchers {
-                totalCount
-              }
+              location
+              name
+              websiteUrl
             }
           }
         }

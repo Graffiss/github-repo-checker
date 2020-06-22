@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect, useContext } from "react"
 import styled from "styled-components"
 import starsIcon from "../../../assets/icons/stars.svg"
 import visitorsIcon from "../../../assets/icons/visitors.svg"
@@ -8,11 +8,13 @@ import addedIcon from "../../../assets/icons/added.svg"
 import externalLinkIcon from "../../../assets/icons/external_link.svg"
 import { ButtonIcon } from "../buttonIcon/buttonIcon.component"
 import { buttonColor } from "../../../theming/theme-getters"
+import AppContext from "../../../context/AppContext"
 
 const RepoWrapper = styled.div`
   height: 350px;
   width: 375px;
   border-radius: 5px;
+  border-top: 5px solid #f0e066;
   border-bottom: 1px solid #e3e5e8;
   border-left: 1px solid #e3e5e8;
   border-right: 1px solid #e3e5e8;
@@ -78,6 +80,7 @@ const Dot = styled.div`
   width: 16px;
   border-radius: 50%;
   margin-right: 4px;
+  background-color: #f0e066;
 `
 
 const Link = styled.div`
@@ -109,47 +112,68 @@ const Title = styled.h2`
 `
 
 const Repository = ({
-  node: {
-    primaryLanguage,
+  repository,
+  repository: {
+    language,
     name,
     description,
-    stargazers,
-    issues,
+    full_name,
+    stargazers_count,
+    forks_count,
     url,
-    watchers,
+    watchers_count,
   },
-}) => (
-  <RepoWrapper style={{ borderTop: `6px solid ${primaryLanguage.color}` }}>
-    <ContentWrapper>
-      <LeftContent>
-        <Title>{name}</Title>
-        <Link>
-          <ButtonIcon icon={externalLinkIcon} />
-          <a href={url} target="_blank">
-            Appnroll/{name}
-          </a>
-        </Link>
-        <Description>{description}</Description>
-      </LeftContent>
-      <RightContent>
-        <ButtonIcon fav icon={addedIcon} />
-      </RightContent>
-    </ContentWrapper>
-    <Footer>
-      <Language>
-        <Dot style={{ backgroundColor: primaryLanguage.color }} />
-        <Paragraph>{primaryLanguage.name}</Paragraph>
-      </Language>
-      <Info>
-        <ButtonIcon icon={starsIcon} />
-        <Paragraph>{stargazers.totalCount}</Paragraph>
-        <ButtonIcon icon={visitorsIcon} />
-        <Paragraph>{watchers.totalCount}</Paragraph>
-        <ButtonIcon icon={issuesIcon} />
-        <Paragraph>{issues.totalCount}</Paragraph>
-      </Info>
-    </Footer>
-  </RepoWrapper>
-)
+}) => {
+  const context = useContext(AppContext)
+  const { addToFav, removeFromFav, favourites } = context
+  const [favourite, setFavourite] = useState(false)
+
+  const handleClick = (repository) => {
+    favourite ? removeFromFav(repository.id) : addToFav(repository)
+  }
+
+  useEffect(() => {
+    const isFav = favourites.find((fav) => fav.id === repository.id)
+    setFavourite(isFav)
+  }, [favourites, repository])
+
+  return (
+    <RepoWrapper>
+      <ContentWrapper>
+        <LeftContent>
+          <Title>{name}</Title>
+          <Link>
+            <ButtonIcon icon={externalLinkIcon} />
+            <a href={url} target="_blank">
+              {full_name}
+            </a>
+          </Link>
+          <Description>{description}</Description>
+        </LeftContent>
+        <RightContent>
+          <ButtonIcon
+            fav
+            icon={favourite ? addedIcon : addIcon}
+            onClick={() => handleClick(repository)}
+          />
+        </RightContent>
+      </ContentWrapper>
+      <Footer>
+        <Language>
+          <Dot />
+          <Paragraph>{language}</Paragraph>
+        </Language>
+        <Info>
+          <ButtonIcon icon={starsIcon} />
+          <Paragraph>{stargazers_count}</Paragraph>
+          <ButtonIcon icon={visitorsIcon} />
+          <Paragraph>{watchers_count}</Paragraph>
+          <ButtonIcon icon={issuesIcon} />
+          <Paragraph>{forks_count}</Paragraph>
+        </Info>
+      </Footer>
+    </RepoWrapper>
+  )
+}
 
 export default Repository
