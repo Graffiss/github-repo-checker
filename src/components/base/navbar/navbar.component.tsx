@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import SearchBar from "../searchBar/searchBar.component"
 import SelectBar from "../selectBar/selectBar.component"
 import { Button } from "../button/button.component"
+import AppContext from "../../../context/AppContext"
 
 const NavWrapper = styled.div`
   display: flex;
@@ -10,18 +11,13 @@ const NavWrapper = styled.div`
 `
 
 const NavBar = () => {
-  const [query, setQuery] = useState("")
-  const [select, setSelect] = useState("")
-
-  const clear = () => {
-    setQuery("")
-    setSelect("")
-  }
+  const context = useContext(AppContext)
+  const { clear } = context
 
   return (
     <NavWrapper>
-      <SearchBar query={query} setQuery={setQuery} />
-      <SelectBar select={select} setSelect={setSelect} />
+      <SearchBar />
+      <SelectBar />
       <Button onClick={clear}>Clear filters</Button>
     </NavWrapper>
   )

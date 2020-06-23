@@ -6,18 +6,22 @@ const GlobalState = ({ children }) => {
     JSON.parse(window.localStorage.getItem("favourite repos")) || []
   const [favourites, setFavourites] = useState(initialFavourites)
   const [repos, setRepos] = useState([])
+  const [query, setQuery] = useState("")
+  const [language, setLanguage] = useState("all")
 
   useEffect(() => {
     window.localStorage.setItem("favourite repos", JSON.stringify(favourites))
   }, [favourites])
 
   useEffect(() => {
-    fetch(`https://api.github.com/orgs/appnroll/repos?per_page=6`)
+    fetch(
+      `https://api.github.com/search/repositories?q=${query}+language:${language}+user:Appnroll&sort=stars&order=desc&per_page=6`
+    )
       .then((response) => response.json())
       .then((result) => {
-        setRepos(result)
+        setRepos(result.items)
       })
-  }, [])
+  }, [language])
 
   const addToFav = (repository) => {
     setFavourites([...favourites, repository])
@@ -28,11 +32,21 @@ const GlobalState = ({ children }) => {
     setFavourites(filteredFavs)
   }
 
+  const clear = () => {
+    setQuery("")
+    setLanguage("all")
+  }
+
   const context = {
     favourites,
     addToFav,
     removeFromFav,
     repos,
+    language,
+    setLanguage,
+    query,
+    setQuery,
+    clear,
   }
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>
 }

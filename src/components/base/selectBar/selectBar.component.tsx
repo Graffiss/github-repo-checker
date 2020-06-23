@@ -1,8 +1,9 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import { textColor } from "../../../theming/theme-getters"
+import AppContext from "../../../context/AppContext"
 
-const SelectBar = ({ select, setSelect }) => {
+const SelectBar = () => {
   const StyledSelect = styled.select`
     color: ${textColor("secondary")};
     border: 1px solid ${textColor("secondary")};
@@ -17,19 +18,22 @@ const SelectBar = ({ select, setSelect }) => {
     margin-right: 18px;
   `
 
+  const context = useContext(AppContext)
+  const { language, setLanguage } = context
+
   const handleChange = (e) => {
-    setSelect(e.target.value)
+    setLanguage(e.target.value)
   }
 
   return (
-    <StyledSelect value={select} onChange={(e) => handleChange(e)}>
-      <option disabled={true} value="">
+    <StyledSelect value={language} onChange={(e) => handleChange(e)}>
+      <option disabled={true} value="all">
         Select language
       </option>
       <option value="javascript">JavaScript</option>
       <option value="css">CSS</option>
-      <option selected value="swift">
-        Swift
+      <option selected value="typescript">
+        TypeScript
       </option>
       <option value="kotlin">Kotlin</option>
     </StyledSelect>

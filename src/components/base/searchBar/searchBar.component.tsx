@@ -1,8 +1,9 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import { textColor } from "../../../theming/theme-getters"
+import AppContext from "../../../context/AppContext"
 
-const SearchBar = ({ query, setQuery }) => {
+const SearchBar = () => {
   const StyledInput = styled.input`
     color: ${textColor("secondary")};
     border: 1px solid ${textColor("secondary")};
@@ -18,6 +19,9 @@ const SearchBar = ({ query, setQuery }) => {
     margin-right: 18px;
   `
 
+  const context = useContext(AppContext)
+  const { query, setQuery } = context
+
   return (
     <StyledInput
       type="text"
@@ -25,8 +29,8 @@ const SearchBar = ({ query, setQuery }) => {
       value={query}
       onChange={(e) => setQuery(e.target.value)}
       placeholder="Search"
-      autoFocus
       autoComplete="off"
+      autoFocus
     />
   )
 }
