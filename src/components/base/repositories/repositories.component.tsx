@@ -17,9 +17,13 @@ const Repositories = () => {
   const { repos } = context
   return (
     <GridWrapper>
-      {repos.map((repository) => (
-        <Repository key={repository.id} repository={repository} />
-      ))}
+      {repos.length === 0 ? (
+        <p>Loading data...</p>
+      ) : (
+        repos.map((repository) => (
+          <Repository key={repository.id} repository={repository} />
+        ))
+      )}
     </GridWrapper>
   )
 }

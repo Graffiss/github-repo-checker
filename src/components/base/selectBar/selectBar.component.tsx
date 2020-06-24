@@ -3,21 +3,21 @@ import styled from "styled-components"
 import { textColor } from "../../../theming/theme-getters"
 import AppContext from "../../../context/AppContext"
 
-const SelectBar = () => {
-  const StyledSelect = styled.select`
-    color: ${textColor("secondary")};
-    border: 1px solid ${textColor("secondary")};
-    border-radius: 2px;
-    height: 40px;
-    width: 275px;
-    font-size: 14px;
-    outline: none;
-    letter-spacing: 0.16px;
-    line-height: 18px;
-    padding-left: 14px;
-    margin-right: 18px;
-  `
+const StyledSelect = styled.select`
+  color: ${textColor("secondary")};
+  border: 1px solid ${textColor("secondary")};
+  border-radius: 2px;
+  height: 40px;
+  width: 275px;
+  font-size: 14px;
+  outline: none;
+  letter-spacing: 0.16px;
+  line-height: 18px;
+  padding-left: 14px;
+  margin-right: 18px;
+`
 
+const SelectBar = () => {
   const context = useContext(AppContext)
   const { language, setLanguage } = context
 
@@ -26,7 +26,11 @@ const SelectBar = () => {
   }
 
   return (
-    <StyledSelect value={language} onChange={(e) => handleChange(e)}>
+    <StyledSelect
+      defaultValue="all"
+      value={language}
+      onChange={(e) => handleChange(e)}
+    >
       <option disabled={true} value="all">
         Select language
       </option>
