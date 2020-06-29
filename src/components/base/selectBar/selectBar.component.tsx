@@ -21,7 +21,7 @@ const SelectBar = () => {
   const context = useContext(AppContext)
   const { language, setLanguage } = context
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLanguage(e.target.value)
   }
 

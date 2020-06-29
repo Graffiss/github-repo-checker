@@ -49,12 +49,14 @@ const SearchBar = () => {
         type="text"
         name="search"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setQuery(e.target.value)
+        }
         placeholder="Search"
         autoComplete="off"
         autoFocus
       />
-      <SearchButton type="search" onClick={() => setSearch(query)}>
+      <SearchButton type="button" onClick={() => setSearch(query)}>
         <FontAwesomeIcon icon={faSearch} />
       </SearchButton>
     </Wrapper>

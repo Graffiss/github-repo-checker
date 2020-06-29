@@ -2,14 +2,30 @@ import React, { useEffect, useState } from "react"
 import AppContext from "./AppContext"
 import axios from "axios"
 
-const GlobalState = ({ children }) => {
+interface IProps {
+  children: React.ReactNode
+}
+
+export interface Repository {
+  id: number
+  language: string
+  name: string
+  description: string
+  full_name: string
+  stargazers_count: number
+  forks_count: number
+  url: string
+  watchers_count: number
+}
+
+const GlobalState = ({ children }: IProps) => {
   const initialFavourites =
-    JSON.parse(window.localStorage.getItem("favourite repos")) || []
-  const [favourites, setFavourites] = useState(initialFavourites)
-  const [repos, setRepos] = useState([])
-  const [query, setQuery] = useState("")
-  const [language, setLanguage] = useState("all")
-  const [search, setSearch] = useState("")
+    JSON.parse(window.localStorage.getItem("favourite repos") || "{}") || []
+  const [favourites, setFavourites] = useState<Repository[]>(initialFavourites)
+  const [repos, setRepos] = useState<Repository[]>([])
+  const [query, setQuery] = useState<String>("")
+  const [language, setLanguage] = useState<String>("all")
+  const [search, setSearch] = useState<String>("")
 
   useEffect(() => {
     window.localStorage.setItem("favourite repos", JSON.stringify(favourites))
@@ -25,16 +41,16 @@ const GlobalState = ({ children }) => {
     fetchData()
   }, [language, search])
 
-  const addToFav = (repository) => {
+  const addToFav = (repository: Repository) => {
     setFavourites([...favourites, repository])
   }
 
-  const removeFromFav = (id) => {
-    const filteredFavs = favourites.filter((fav) => fav.id !== id)
+  const removeFromFav = (id: number) => {
+    const filteredFavs = favourites.filter((fav: Repository) => fav.id !== id)
     setFavourites(filteredFavs)
   }
 
-  const clear = (e) => {
+  const clear = (e: any) => {
     e.preventDefault()
 
     setSearch("")
@@ -54,6 +70,7 @@ const GlobalState = ({ children }) => {
     clear,
     setSearch,
   }
+
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>
 }
 

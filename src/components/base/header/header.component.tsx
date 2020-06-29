@@ -85,9 +85,9 @@ const Header: AppFunctionComponent<Props> = ({ siteTitle }) => {
           <Title>App'n'roll's repositories</Title>
           <Description>We rock IT</Description>
           <InfoWrapper>
-            <ButtonIcon icon={locationIcon} />
+            <ButtonIcon fav={false} icon={locationIcon} />
             <p>Warsaw,PL</p>
-            <ButtonIcon icon={linkIcon} />
+            <ButtonIcon fav={false} icon={linkIcon} />
             <a href="http://appnroll.com">http://appnroll.com</a>
           </InfoWrapper>
         </ContentWrapper>

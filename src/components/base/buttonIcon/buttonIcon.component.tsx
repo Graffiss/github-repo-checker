@@ -1,7 +1,12 @@
 import styled, { css } from "styled-components"
 import { buttonColor } from "../../../theming/theme-getters"
 
-export const ButtonIcon = styled.div`
+interface Props {
+  icon: string
+  fav: boolean
+}
+
+export const ButtonIcon = styled.div<Props>`
   display: block;
   width: 16px;
   height: 16px;

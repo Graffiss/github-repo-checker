@@ -1,6 +1,6 @@
 // import AppFunctionComponent from "@appnroll/app-function-component"
 import { graphql } from "gatsby"
-import React, { useState, useEffect } from "react"
+import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Repositories from "../components/base/repositories/repositories.component"

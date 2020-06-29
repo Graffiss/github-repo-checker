@@ -110,6 +110,20 @@ const Title = styled.h2`
   line-height: 36px;
   margin: 0 0 12px 0;
 `
+interface Repository {
+  id: number
+  language: string
+  name: string
+  description: string
+  full_name: string
+  stargazers_count: number
+  forks_count: number
+  url: string
+  watchers_count: number
+}
+interface Repo {
+  repository: Repository
+}
 
 const Repository = ({
   repository,
@@ -123,18 +137,22 @@ const Repository = ({
     url,
     watchers_count,
   },
-}) => {
+}: Repo) => {
   const context = useContext(AppContext)
   const { addToFav, removeFromFav, favourites } = context
   const [favourite, setFavourite] = useState(false)
 
-  const handleClick = (repository) => {
+  const handleClick = (repository: Repository) => {
     favourite ? removeFromFav(repository.id) : addToFav(repository)
   }
 
   useEffect(() => {
     const isFav = favourites.find((fav) => fav.id === repository.id)
-    setFavourite(isFav)
+    if (isFav === undefined) {
+      setFavourite(false)
+    } else {
+      setFavourite(true)
+    }
   }, [favourites, repository])
 
   return (
@@ -143,7 +161,7 @@ const Repository = ({
         <LeftContent>
           <Title>{name}</Title>
           <Link>
-            <ButtonIcon icon={externalLinkIcon} />
+            <ButtonIcon fav={false} icon={externalLinkIcon} />
             <a href={url} target="_blank">
               {full_name}
             </a>
@@ -164,11 +182,11 @@ const Repository = ({
           <Paragraph>{language}</Paragraph>
         </Language>
         <Info>
-          <ButtonIcon icon={starsIcon} />
+          <ButtonIcon fav={false} icon={starsIcon} />
           <Paragraph>{stargazers_count}</Paragraph>
-          <ButtonIcon icon={visitorsIcon} />
+          <ButtonIcon fav={false} icon={visitorsIcon} />
           <Paragraph>{watchers_count}</Paragraph>
-          <ButtonIcon icon={issuesIcon} />
+          <ButtonIcon fav={false} icon={issuesIcon} />
           <Paragraph>{forks_count}</Paragraph>
         </Info>
       </Footer>
