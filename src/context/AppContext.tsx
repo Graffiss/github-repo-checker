@@ -25,6 +25,6 @@ interface Context {
   setSearch: (query: string) => string
 }
 
-const AppContext = React.createContext<Context | {}>({})
+const AppContext = React.createContext<Context>({})
 
 export default AppContext

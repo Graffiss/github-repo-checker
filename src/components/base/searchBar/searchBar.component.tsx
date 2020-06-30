@@ -48,6 +48,7 @@ const SearchBar = () => {
       <StyledInput
         type="text"
         name="search"
+        data-testid="search"
         value={query}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setQuery(e.target.value)
