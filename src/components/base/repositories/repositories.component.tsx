@@ -10,6 +10,11 @@ const GridWrapper = styled.div`
   grid-column-gap: 10px;
   grid-row-gap: 20px;
   margin: 39px auto;
+
+  @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+    grid-template-columns: repeat(1, 1fr);
+    margin: 10px auto;
+  }
 `
 
 const Repositories = () => {

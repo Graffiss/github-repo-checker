@@ -9,6 +9,7 @@ import externalLinkIcon from "../../../assets/icons/external_link.svg"
 import { ButtonIcon } from "../buttonIcon/buttonIcon.component"
 import { buttonColor } from "../../../theming/theme-getters"
 import AppContext from "../../../context/AppContext"
+import { colors } from "../../../helpers/githubColors"
 
 const RepoWrapper = styled.div`
   height: 350px;
@@ -19,6 +20,10 @@ const RepoWrapper = styled.div`
   border-left: 1px solid #e3e5e8;
   border-right: 1px solid #e3e5e8;
   position: relative;
+
+  @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+    width: 300px;
+  }
 `
 
 const ContentWrapper = styled.div`
@@ -80,7 +85,6 @@ const Dot = styled.div`
   width: 16px;
   border-radius: 50%;
   margin-right: 4px;
-  background-color: #f0e066;
 `
 
 const Link = styled.div`
@@ -141,22 +145,36 @@ const Repository = ({
   const context = useContext(AppContext)
   const { addToFav, removeFromFav, favourites } = context
   const [favourite, setFavourite] = useState(false)
+  // const [color, setColor] = useState([])
 
   const handleClick = (repository: Repository) => {
     favourite ? removeFromFav(repository.id) : addToFav(repository)
   }
 
   useEffect(() => {
-    const isFav = favourites.find((fav) => fav.id === repository.id)
-    if (isFav === undefined) {
-      setFavourite(false)
-    } else {
-      setFavourite(true)
+    if (favourites.length > 0) {
+      const isFav = favourites.find((fav) => fav.id === repository.id)
+      if (isFav === undefined) {
+        setFavourite(false)
+      } else {
+        setFavourite(true)
+      }
     }
   }, [favourites, repository])
 
+  /*   useEffect(() => {
+    const fetchColors = async () => {
+      const colors = await fetch(
+        "https://raw.githubusercontent.com/ozh/github-colors/master/colors.json"
+      ).then((response) => response.json())
+      setColor(colors)
+      console.log("all colors from fetch:", colors)
+    }
+    fetchColors()
+  }, []) */
+
   return (
-    <RepoWrapper>
+    <RepoWrapper style={{ borderTop: `5px solid ${colors[language].color}` }}>
       <ContentWrapper>
         <LeftContent>
           <Title>{name}</Title>
@@ -178,7 +196,7 @@ const Repository = ({
       </ContentWrapper>
       <Footer>
         <Language>
-          <Dot />
+          <Dot style={{ backgroundColor: colors[language].color }} />
           <Paragraph>{language}</Paragraph>
         </Language>
         <Info>

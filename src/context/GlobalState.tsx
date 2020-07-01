@@ -34,7 +34,7 @@ const GlobalState = ({ children }: IProps) => {
   useEffect(() => {
     const fetchData = async () => {
       const repos = await axios.get(
-        `https://api.github.com/search/repositories?q=${search}+language:${language}+user:Appnroll&sort=stars&order=desc&per_page=6`
+        `https://api.github.com/search/repositories?q=${search}+language:${language}+user:Appnroll&sort=stars&order=desc`
       )
       setRepos(repos.data.items)
     }

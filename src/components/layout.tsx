@@ -17,6 +17,11 @@ const ContentWrapper = styled.div`
   min-height: 80vh;
   width: 60vw;
   margin: 0 auto;
+
+  @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+    margin: 0 20px;
+    width: 90vw;
+  }
 `
 
 const Layout = ({ children }: { children: ReactChild | ReactChild[] }) => {

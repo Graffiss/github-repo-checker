@@ -1,11 +1,10 @@
 // import AppFunctionComponent from "@appnroll/app-function-component"
-import { graphql } from "gatsby"
 import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Repositories from "../components/base/repositories/repositories.component"
 import GlobalState from "../context/GlobalState"
-import { parseData } from "../parser/dataParser"
+import { parseData } from "../helpers/dataParser"
 
 /* interface Props {
   readonly data: {
@@ -17,7 +16,7 @@ import { parseData } from "../parser/dataParser"
   }
 } */
 
-const IndexPage = ({ data }) => {
+const IndexPage = () => {
   return (
     <GlobalState>
       <Layout>
@@ -29,23 +28,3 @@ const IndexPage = ({ data }) => {
 }
 
 export default IndexPage
-
-export const query = graphql`
-  query MyQuery {
-    allGithubData {
-      edges {
-        node {
-          data {
-            organization {
-              avatarUrl
-              description
-              location
-              name
-              websiteUrl
-            }
-          }
-        }
-      }
-    }
-  }
-`

@@ -15,31 +15,34 @@ const StyledSelect = styled.select`
   line-height: 18px;
   padding-left: 14px;
   margin-right: 18px;
+  cursor: pointer;
+  @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+    margin: 10px auto;
+  }
 `
 
 const SelectBar = () => {
   const context = useContext(AppContext)
-  const { language, setLanguage } = context
+  const { language, setLanguage, repos } = context
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLanguage(e.target.value)
   }
 
+  const repoUniqueLanguages = Array.from(
+    new Set(repos.map((item: any) => item.language))
+  )
+
   return (
-    <StyledSelect
-      defaultValue="all"
-      value={language}
-      onChange={(e) => handleChange(e)}
-    >
+    <StyledSelect value={language} onChange={(e) => handleChange(e)}>
       <option disabled={true} value="all">
         Select language
       </option>
-      <option value="javascript">JavaScript</option>
-      <option value="css">CSS</option>
-      <option selected value="typescript">
-        TypeScript
-      </option>
-      <option value="kotlin">Kotlin</option>
+      {repoUniqueLanguages.map((language) => (
+        <option key={language} value={language}>
+          {language}
+        </option>
+      ))}
     </StyledSelect>
   )
 }

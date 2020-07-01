@@ -26,6 +26,10 @@ const StyledInput = styled.input`
   &::placeholder {
     color: ${textColor("secondary")};
   }
+
+  @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+    width: 225px;
+  }
 `
 
 const SearchButton = styled.button`

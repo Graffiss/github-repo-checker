@@ -7,6 +7,7 @@ import AppContext from "../../../context/AppContext"
 
 const NavWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
 `
 

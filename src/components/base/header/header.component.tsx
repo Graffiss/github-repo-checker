@@ -7,11 +7,17 @@ import locationIcon from "../../../assets/icons/location.svg"
 import { textColor } from "../../../theming/theme-getters"
 import NavBar from "../navbar/navbar.component"
 import { ButtonIcon } from "../buttonIcon/buttonIcon.component"
+import { StaticQuery, graphql } from "gatsby"
+import { parseData } from "../../../helpers/dataParser"
 
 const HeaderRoot = styled.header`
   min-height: 20vh;
   width: 60vw;
   margin: 0 auto;
+
+  @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+    margin: 0 20px;
+  }
 `
 
 const HeaderWrapper = styled.div`
@@ -78,22 +84,49 @@ interface Props {
 
 const Header: AppFunctionComponent<Props> = ({ siteTitle }) => {
   return (
-    <HeaderRoot>
-      <HeaderWrapper>
-        <Logo />
-        <ContentWrapper>
-          <Title>App'n'roll's repositories</Title>
-          <Description>We rock IT</Description>
-          <InfoWrapper>
-            <ButtonIcon fav={false} icon={locationIcon} />
-            <p>Warsaw,PL</p>
-            <ButtonIcon fav={false} icon={linkIcon} />
-            <a href="http://appnroll.com">http://appnroll.com</a>
-          </InfoWrapper>
-        </ContentWrapper>
-      </HeaderWrapper>
-      <NavBar />
-    </HeaderRoot>
+    <StaticQuery
+      query={graphql`
+        query HeaderData {
+          allGithubData {
+            edges {
+              node {
+                data {
+                  organization {
+                    avatarUrl
+                    description
+                    location
+                    name
+                    websiteUrl
+                  }
+                }
+              }
+            }
+          }
+        }
+      `}
+      render={(data) => {
+        const parsedData = parseData(data)
+
+        return (
+          <HeaderRoot>
+            <HeaderWrapper>
+              <Logo />
+              <ContentWrapper>
+                <Title>{`${parsedData.name}'s repositories`}</Title>
+                <Description>{parsedData.description}</Description>
+                <InfoWrapper>
+                  <ButtonIcon fav={false} icon={locationIcon} />
+                  <p>{parsedData.location}</p>
+                  <ButtonIcon fav={false} icon={linkIcon} />
+                  <a href={parsedData.websiteUrl}>{parsedData.websiteUrl}</a>
+                </InfoWrapper>
+              </ContentWrapper>
+            </HeaderWrapper>
+            <NavBar />
+          </HeaderRoot>
+        )
+      }}
+    />
   )
 }
 
