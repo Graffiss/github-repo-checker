@@ -78,11 +78,7 @@ const Description = styled.p`
   color: ${textColor("secondary")};
 `
 
-interface Props {
-  siteTitle: string
-}
-
-const Header: AppFunctionComponent<Props> = ({ siteTitle }) => {
+const Header: AppFunctionComponent = () => {
   return (
     <StaticQuery
       query={graphql`

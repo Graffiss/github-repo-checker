@@ -152,7 +152,7 @@ const Repository = ({
   }
 
   useEffect(() => {
-    if (favourites.length > 0) {
+    if (favourites.length >= 0) {
       const isFav = favourites.find((fav) => fav.id === repository.id)
       if (isFav === undefined) {
         setFavourite(false)

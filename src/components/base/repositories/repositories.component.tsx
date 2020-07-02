@@ -22,7 +22,7 @@ const Repositories = () => {
   const { repos } = context
   return (
     <GridWrapper>
-      {repos.length === 0 ? (
+      {repos.length === 0 || repos === undefined ? (
         <p>Loading data...</p>
       ) : (
         repos.map((repository) => (

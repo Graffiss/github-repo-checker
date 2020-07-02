@@ -1,4 +1,7 @@
 require("dotenv").config()
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
 
 const {
   NODE_ENV,
@@ -43,8 +46,8 @@ module.exports = {
         icon: "src/images/appnroll.png",
       },
     },
-    `gatsby-plugin-sitemap`,
-    {
+    //`gatsby-plugin-sitemap`,
+    /*     {
       resolve: "gatsby-plugin-robots-txt",
       options: {
         resolveEnv: () => NETLIFY_ENV,
@@ -64,7 +67,7 @@ module.exports = {
           },
         },
       },
-    },
+    }, */
     {
       resolve: "gatsby-plugin-react-svg",
       options: {

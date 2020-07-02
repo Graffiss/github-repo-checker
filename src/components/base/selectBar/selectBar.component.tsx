@@ -30,7 +30,9 @@ const SelectBar = () => {
   }
 
   const repoUniqueLanguages = Array.from(
-    new Set(repos.map((item: any) => item.language))
+    new Set(
+      repos === undefined ? "Loading" : repos.map((item: any) => item.language)
+    )
   )
 
   return (

@@ -19,8 +19,10 @@ export interface Repository {
 }
 
 const GlobalState = ({ children }: IProps) => {
-  const initialFavourites =
-    JSON.parse(window.localStorage.getItem("favourite repos") || "{}") || []
+  const windowGlobal =
+    typeof window !== "undefined" &&
+    window.localStorage.getItem("favourite repos")
+  const initialFavourites = JSON.parse(windowGlobal) || []
   const [favourites, setFavourites] = useState<Repository[]>(initialFavourites)
   const [repos, setRepos] = useState<Repository[]>([])
   const [query, setQuery] = useState<String>("")
