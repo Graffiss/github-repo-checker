@@ -14,7 +14,7 @@ export interface Repository {
   full_name: string
   stargazers_count: number
   forks_count: number
-  url: string
+  html_url: string
   watchers_count: number
 }
 

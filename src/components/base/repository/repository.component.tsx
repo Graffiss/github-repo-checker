@@ -138,7 +138,7 @@ const Repository = ({
     full_name,
     stargazers_count,
     forks_count,
-    url,
+    html_url,
     watchers_count,
   },
 }: Repo) => {
@@ -180,7 +180,7 @@ const Repository = ({
           <Title>{name}</Title>
           <Link>
             <ButtonIcon fav={false} icon={externalLinkIcon} />
-            <a href={url} target="_blank">
+            <a href={html_url} target="_blank">
               {full_name}
             </a>
           </Link>
